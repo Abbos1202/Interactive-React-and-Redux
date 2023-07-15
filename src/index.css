@@ -3,11 +3,35 @@
     padding: 0;
     box-sizing: border-box;
 }
-
-.heading {
+body {
     font-family: sans-serif;
+    padding: 1.5rem;
+}
+
+.container {
+    margin: 0 auto;
+}
+
+.card {
     display: flex;
     align-items: center;
-    justify-content: center;
-    height: 100vh;
+    gap: 50px;
+    flex-wrap: wrap; 
+}
+
+h1 {
+    text-align: center;
+    font-family: cursive;
+    color: #ff7f50;
+    font-size: 38px;
+    margin-bottom: 20px;
+}
+
+h2 {
+    margin-top: 15px;
+}
+
+img {
+    border-radius: 10px;
+    width: 350px;
 }
