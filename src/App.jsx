@@ -8,14 +8,12 @@ class App extends Component {
     };
   }
   render() {
-    const AddOne = () => {
-        this.setState({count: this.state.count + 1})
+ 
+      const AddDeleteOne = (value) => {
+          this.setState({count: value})
     }
     const Reset = () => {
         this.setState({count: 0})
-    }
-    const DeleteOne = () => {
-        this.setState({count: this.state.count - 1})
     }
     return (
       <div>
@@ -30,9 +28,9 @@ class App extends Component {
                   <h1>{this.state.count}</h1>
                 </div>
                 <div className="card-footer">
-                  <button onClick={AddOne} className="btn btn-success m-2">Add + 1</button>
+                  <button onClick={() => AddDeleteOne(this.state.count + 1)} className="btn btn-success m-2">Add + 1</button>
                   <button onClick={Reset} className="btn btn-primary">Reset</button>
-                  <button onClick={DeleteOne} className="btn btn-danger m-2">Delete - 1</button>
+                  <button onClick={() => AddDeleteOne(this.state.count - 1)} className="btn btn-danger m-2">Delete - 1</button>
                 </div>
               </div>
             </div>
