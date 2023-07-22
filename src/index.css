@@ -4,22 +4,120 @@
   box-sizing: border-box;
 }
 body {
-  font-family: cursive;
+  margin: 2rem;
+  font-family: sans-serif;
 }
-.container {
+
+.wrapper {
+  width: 1300px;
   display: flex;
   align-items: center;
-  justify-content: space-around;
+  justify-content: center;
   flex-wrap: wrap;
+  margin: 0 auto;
 }
-.wrapper {
-  box-shadow: 5px 10px 20px rgba(0, 0, 0, 0.3), 5px 10px 20px rgba(0, 0, 0, 0.3);
-  border-radius: 20px;
-  padding: 0 20px 5px 20px;
-  margin: 20px;
+.card {
+  margin: 10px;
 }
-img {
-  width: 350px;
-  height: 350px;
-  border-radius: 20px;
+.card__body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  text-align: center;
+  margin-top: 60px;
+  flex-wrap: wrap;
+  height: 420px;
+  border-radius: 12px;
+  position: relative;
+  transition: all 0.15s linear;
+}
+.card__body:hover {
+  background-color: #5ec1d4;
+  color: #fff;
+}
+.card__body h2 {
+  font-size: 28px;
+  font-weight: 700;
+  margin: 20px 0 10px 0;
+}
+.card__body h1 {
+  margin: 20px 0;
+  font-weight: 700;
+  font-size: 28px;
+}
+.card__body p {
+  width: 80%;
+  font-size: 14px;
+}
+.card__body img {
+  width: 250px;
+  position: absolute;
+  top: -60px;
+}
+.card__body button {
+  padding: 0.75rem 2.5rem;
+  border: none;
+  border-radius: 4px;
+  color: #fff;
+  margin-bottom: 20px;
+  box-shadow: 4px 4px 7px 5px rgba(0, 0, 0, 0.1);
+  background-color: #ffb334;
+  cursor: pointer;
+  transition: all 0.15s linear;
+  letter-spacing: 1.4px;
+  font-weight: 700;
+}
+.card__body button:hover {
+  transform: translateY(-4px);
+  background-color: #f0a625;
+}
+.card__body button:active {
+  transform: translateY(-2px);
+  background-color: #e29612;
+}
+.card__body span {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  padding: 0.5rem 1.25rem;
+  letter-spacing: 1.2px;
+  top: -15px;
+  right: -15px;
+  color: #fff;
+  background-color: #ff2400;
+}
+
+/* Responsive design */
+
+@media (min-width: 0) and (max-width: 475px) {
+  .wrapper {
+    width: 100%;
+  }
+}
+@media (min-width: 475px) and (max-width: 779px) {
+  .wrapper {
+    width: 100%;
+  }
+  .card {
+    width: 45%;
+  }
+}
+@media (min-width: 780px) and (max-width: 920px) {
+  .wrapper {
+    width: 100%;
+  }
+  .card {
+    width: 45%;
+  }
+}
+@media (min-width: 921px) and (max-width: 1400px) {
+  .wrapper {
+    width: 100%;
+  }
+  .card {
+    width: 30%;
+  }
 }
