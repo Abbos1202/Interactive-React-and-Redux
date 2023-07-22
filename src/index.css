@@ -4,54 +4,22 @@
   box-sizing: border-box;
 }
 body {
-  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
-    "Lucida Sans", Arial, sans-serif;
+  font-family: cursive;
 }
-
-/* Navbar Styles */
-nav {
-  background-color: #314b40;
-  height: 7vh;
+.container {
   display: flex;
   align-items: center;
-  padding-top: 1rem;
   justify-content: space-around;
+  flex-wrap: wrap;
 }
-nav ul {
-  display: flex;
-  align-items: center;
-  padding: 0.8rem 1.5rem;
-  justify-content: space-around;
+.wrapper {
+  box-shadow: 5px 10px 20px rgba(0, 0, 0, 0.3), 5px 10px 20px rgba(0, 0, 0, 0.3);
+  border-radius: 20px;
+  padding: 0 20px 5px 20px;
+  margin: 20px;
 }
-nav ul li {
-  list-style: none;
-}
-a {
-  padding: 0.8rem 1.5rem;
-  color: #fff;
-  font-size: 1rem;
-  text-decoration: none;
-  transition: letter-spacing 0.15s linear;
-}
-a:hover {
-  letter-spacing: 1.5px;
-}
-
-/* Section styles */
-section {
-  background: url("./assets/imgs/monster.jpg");
-  height: 86vh;
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
-}
-footer {
-  background: #314b40;
-  height: 7vh;
-  color: #fff;
-  font-size: 1.2rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding-top: 1rem;
+img {
+  width: 350px;
+  height: 350px;
+  border-radius: 20px;
 }
