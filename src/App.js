@@ -1,165 +1,122 @@
-import React, { Component } from 'react';
-import PlayerModal from './components/PlayerModal';
+import React, { Component } from "react";
 
-
-class App extends Component {
+export class App extends Component {
   state = {
-    players: [],
-    modalVisibility: false,
-    currentData: "",
+    firstName: "",
+    email: "",
+    message: "",
+    nativeLanguage: "",
+    agreement: false,
+    gender: "",
   };
 
-  componentDidMount() {
-    const players = [
-      {
-        firstName: "Mbappe",
-        age: 23,
-        club: "PSG",
-        value: 160,
-      },
-      {
-        firstName: "Salah",
-        age: 29,
-        club: "Liverpool",
-        value: 100,
-      },
-      {
-        firstName: "Lukaku",
-        age: 28,
-        club: "Chelsea",
-        value: 100,
-      },
-      {
-        firstName: "Neymar",
-        age: 30,
-        club: "PSG",
-        value: 150,
-      },
-    ]
+  handleValue = (e) => {
     this.setState({
-      players,
-    })
-  }
+      [e.target.name]: e.target.value,
+    });
+  };
 
-  removePlayers = (index) => {
-    const players = this.state.players;
-    players.splice(index, 1)
-    this.setState({ players, })
-  }
-
-  openModal = () => {
+  handleChecked = (e) => {
     this.setState({
-      modalVisibility: true,
-    })
-  }
-  closeModal = () => {
-    this.setState({
-      modalVisibility: false,
-    })
-  }
-
-  changeCurrentData = (type, isInc) => {
-    const newCurrentData = this.state.currentData
-      ? this.state.currentData
-      : {
-        firstName: "none",
-        age: 0,
-        club: "none",
-        value: 0,
-      }
-
-    if (type === "age") {
-      if (isInc) {
-        newCurrentData.age++
-      } else if (newCurrentData.age < 1) {
-        newCurrentData.age = 0;
-      } else {
-        newCurrentData.age--
-      }
+      [e.target.name]: e.target.checked,
+    });
+  };
+  validateInput = (e) => {
+    if (e.target.value.length < 4) {
+      alert("Iltimos, 4 tadan ko'p so'z kiriting");
     }
-
-    if (type === "value") {
-      if (isInc) {
-        newCurrentData.value++
-      } else if (newCurrentData.value < 1) {
-        newCurrentData.value = 0;
-      } else {
-        newCurrentData.value--
-      }
-    }
-
-    this.setState({
-      currentData: newCurrentData,
-    })
-  }
-
-  saveChanges = () => {
-    const {players, currentData} = this.state;
-    players.push(currentData);
-    currentData.firstName ="Player"
-    this.setState({
-      players,
-      modalVisibility: false,
-    })
-  }
-
-  clearCurrentData = () => {
-    this.setState({
-      currentData: "",
-    })
-  }
-
+  };
   render() {
-    const { players, modalVisibility, currentData } = this.state;
+    const { firstName, email, message, nativeLanguage, agreement } =
+      this.state;
     return (
-      <div className='market'>
-        <div className="container">
-          <h1>⚽ TRANSFER market</h1>
-          <div className="row">
-            <div className="col">
-              <button className='btn btn-primary m-2' onClick={this.openModal}>Add a player</button>
-            </div>
-            {
-              modalVisibility ? <PlayerModal 
-              closeModal={this.closeModal} 
-              currentData={currentData} 
-              saveChanges={this.saveChanges}
-              clearCurrentData={this.clearCurrentData}
-              changeCurrentData={this.changeCurrentData} /> : ""
-             
-            }
+      <div className="container">
+        <form>
+          <div>
+            <label htmlFor="firstName">First Name: </label>
+            <input
+              className="form-control"
+              type="text"
+              name="firstName"
+              id="firstName"
+              value={firstName}
+              onChange={this.handleValue}
+              onBlur={this.validateInput}
+            />
           </div>
-          <div className="row">
-            <div className="col">
-              <table className="table border table-hover table-sm">
-                <thead>
-                  <tr className='table-dark'>
-                    <th>#</th>
-                    <th>Name</th>
-                    <th>Age</th>
-                    <th>Club</th>
-                    <th>Market Value</th>
-                    <th></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {
-                    players.map((item, index) =>
-                      <tr key={index}>
-                        <td>{index + 1}</td>
-                        <td>{item.firstName}</td>
-                        <td>{item.age}</td>
-                        <td>{item.club}</td>
-                        <td><span className='badge bg-primary'>💰${item.value}00m</span></td>
-                        <td><button className='btn btn-danger btn-sm' onClick={() => this.removePlayers(index)}>remove</button></td>
-                      </tr>
-                    )
-                  }
-                </tbody>
-              </table>
-            </div>
+          <div>
+            <label htmlFor="email">Email</label>
+            <input
+              className="form-control"
+              type="email"
+              name="email"
+              id="email"
+              onChange={this.handleValue}
+              value={email}
+            />
           </div>
-        </div>
+
+          <div>
+            <label htmlFor="message">Message</label>
+            <textarea
+              className="form-control"
+              name="message"
+              id="message"
+              cols="30"
+              rows="10"
+              value={message}
+              onChange={this.handleValue}
+            ></textarea>
+          </div>
+          <div>
+            <label htmlFor="nativeLanguage">Native Language</label>
+            <select
+              className="form-control"
+              name="nativeLanguage"
+              id="nativeLanguage"
+              value={nativeLanguage}
+              onChange={this.handleValue}
+            >
+              <option disabled></option>
+              <option value="uz">uz</option>
+              <option value="en">eng</option>
+              <option value="ru">ru</option>
+            </select>
+          </div>
+          <div className="form-check">
+            <input
+              type="checkbox"
+              id="agreement"
+              className="form-check-input"
+              value={agreement}
+              name="agreement"
+              onChange={this.handleChecked}
+            />
+            <label htmlFor="agreement" className="form-check-label">
+              Agreement
+            </label>
+          </div>
+
+          <div className="form-check">
+            <label htmlFor="gender">Gender</label><br />
+            <input
+              type="radio"
+              name="gender"
+              id="gender"
+              value="male"
+              onChange={this.handleValue}
+            />
+            Male
+            <input
+              type="radio"
+              name="gender"
+              id="gender"
+              value="female"
+              onChange={this.handleValue}
+            />
+            Female
+          </div>
+        </form>
       </div>
     );
   }
