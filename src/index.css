@@ -3,3 +3,71 @@
   padding: 0;
   box-sizing: border-box;
 }
+
+body {
+  font-family: sans-serif;
+}
+
+.contact {
+  height: 100vh;
+  background: #315399;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.contact-card {
+  width: 80%;
+  background: #fff;
+}
+
+.contact-title {
+  text-align: center;
+  background: #000;
+}
+
+.contact-title h2 {
+  padding: 1rem 2rem;
+  color: #fff;
+}
+
+.contact-form {
+ padding: 1.5rem 1.5rem 1rem 0.25rem;
+ background: #fff;
+ text-align: justify;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+}
+
+label {
+  padding: 0.25rem;
+}
+
+input {
+  padding: 0.25rem;
+  border: none;
+  border-bottom: 1px solid #c2c2c2;
+  font-size: 15px;
+}
+input:focus {
+  outline: none;
+}
+
+.btn {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 24px;
+  background-color: #71c562;
+  color: #fff;
+  margin: 20px 0 10px 150px;
+  cursor: pointer;
+  transition: all 0.15s linear;
+}
+.btn:hover {
+  background: #44ad31;
+}
+
+div:nth-child(2) {
+  margin-top: 20px;
+}

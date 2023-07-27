@@ -2,121 +2,84 @@ import React, { Component } from "react";
 
 export class App extends Component {
   state = {
-    firstName: "",
     email: "",
-    message: "",
-    nativeLanguage: "",
-    agreement: false,
-    gender: "",
+    isAgree: false,
   };
 
-  handleValue = (e) => {
+  handleEmail = (e) => {
     this.setState({
-      [e.target.name]: e.target.value,
+      email: e.target.value,
     });
   };
 
-  handleChecked = (e) => {
+  handleChecking = (e) => {
     this.setState({
-      [e.target.name]: e.target.checked,
+      isAgree: e.target.checked,
     });
   };
-  validateInput = (e) => {
-    if (e.target.value.length < 4) {
-      alert("Iltimos, 4 tadan ko'p so'z kiriting");
+
+  submitBtn = () => {
+    const regEmail =
+      /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    const isValidEmail = regEmail.test(this.state.email);
+
+    const isValidIsActive = this.state.isAgree;
+
+    if (!isValidEmail) {
+      alert("Please, enter valid email!");
+      return;
     }
+
+    if (!isValidIsActive) {
+      alert("Please, agree with terms!");
+      return;
+    }
+
+    this.setState({
+      email: "",
+      isAgree: false,
+    });
+
+    alert("Congratulations 🎉");
   };
+
   render() {
-    const { firstName, email, message, nativeLanguage, agreement } =
-      this.state;
+    const { email, isAgree } = this.state;
     return (
-      <div className="container">
-        <form>
-          <div>
-            <label htmlFor="firstName">First Name: </label>
-            <input
-              className="form-control"
-              type="text"
-              name="firstName"
-              id="firstName"
-              value={firstName}
-              onChange={this.handleValue}
-              onBlur={this.validateInput}
-            />
+      <div className="contact">
+        <div className="contact-card">
+          <div className="contact-title">
+            <h2>Contact Us</h2>
           </div>
-          <div>
-            <label htmlFor="email">Email</label>
-            <input
-              className="form-control"
-              type="email"
-              name="email"
-              id="email"
-              onChange={this.handleValue}
-              value={email}
-            />
-          </div>
+          <div className="contact-form">
+            <form action="#">
+              <div>
+                <label htmlFor="email">Email</label>
+                <input
+                  value={email}
+                  onChange={this.handleEmail}
+                  type="email"
+                  id="email"
+                  name="email"
+                />
+              </div>
+              <div>
+                <input
+                  checked={isAgree}
+                  onChange={this.handleChecking}
+                  type="checkbox"
+                  id="agreement"
+                  name="agreement"
+                />
+                <label htmlFor="agreement">Terms &amp; Conditions</label>
+              </div>
 
-          <div>
-            <label htmlFor="message">Message</label>
-            <textarea
-              className="form-control"
-              name="message"
-              id="message"
-              cols="30"
-              rows="10"
-              value={message}
-              onChange={this.handleValue}
-            ></textarea>
+              <button onClick={this.submitBtn} className="btn" type="button">
+                - Submit
+              </button>
+            </form>
           </div>
-          <div>
-            <label htmlFor="nativeLanguage">Native Language</label>
-            <select
-              className="form-control"
-              name="nativeLanguage"
-              id="nativeLanguage"
-              value={nativeLanguage}
-              onChange={this.handleValue}
-            >
-              <option disabled></option>
-              <option value="uz">uz</option>
-              <option value="en">eng</option>
-              <option value="ru">ru</option>
-            </select>
-          </div>
-          <div className="form-check">
-            <input
-              type="checkbox"
-              id="agreement"
-              className="form-check-input"
-              value={agreement}
-              name="agreement"
-              onChange={this.handleChecked}
-            />
-            <label htmlFor="agreement" className="form-check-label">
-              Agreement
-            </label>
-          </div>
-
-          <div className="form-check">
-            <label htmlFor="gender">Gender</label><br />
-            <input
-              type="radio"
-              name="gender"
-              id="gender"
-              value="male"
-              onChange={this.handleValue}
-            />
-            Male
-            <input
-              type="radio"
-              name="gender"
-              id="gender"
-              value="female"
-              onChange={this.handleValue}
-            />
-            Female
-          </div>
-        </form>
+        </div>
       </div>
     );
   }
