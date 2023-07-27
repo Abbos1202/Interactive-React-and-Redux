@@ -1,84 +1,168 @@
-/* LifeCycle - UnMount --> componentWillUnMount */
-
 import React, { Component } from 'react';
-import Note from './Note';
+import PlayerModal from './components/PlayerModal';
 
-export default class App extends Component {
+
+class App extends Component {
   state = {
-    status: true,
-  }
-  changeStatus = (type) => {
+    players: [],
+    modalVisibility: false,
+    currentData: "",
+  };
+
+  componentDidMount() {
+    const players = [
+      {
+        firstName: "Mbappe",
+        age: 23,
+        club: "PSG",
+        value: 160,
+      },
+      {
+        firstName: "Salah",
+        age: 29,
+        club: "Liverpool",
+        value: 100,
+      },
+      {
+        firstName: "Lukaku",
+        age: 28,
+        club: "Chelsea",
+        value: 100,
+      },
+      {
+        firstName: "Neymar",
+        age: 30,
+        club: "PSG",
+        value: 150,
+      },
+    ]
     this.setState({
-      status: type === "show"
+      players,
     })
   }
+
+  removePlayers = (index) => {
+    const players = this.state.players;
+    players.splice(index, 1)
+    this.setState({ players, })
+  }
+
+  openModal = () => {
+    this.setState({
+      modalVisibility: true,
+    })
+  }
+  closeModal = () => {
+    this.setState({
+      modalVisibility: false,
+    })
+  }
+
+  changeCurrentData = (type, isInc) => {
+    const newCurrentData = this.state.currentData
+      ? this.state.currentData
+      : {
+        firstName: "none",
+        age: 0,
+        club: "none",
+        value: 0,
+      }
+
+    if (type === "age") {
+      if (isInc) {
+        newCurrentData.age++
+      } else if (newCurrentData.age < 1) {
+        newCurrentData.age = 0;
+      } else {
+        newCurrentData.age--
+      }
+    }
+
+    if (type === "value") {
+      if (isInc) {
+        newCurrentData.value++
+      } else if (newCurrentData.value < 1) {
+        newCurrentData.value = 0;
+      } else {
+        newCurrentData.value--
+      }
+    }
+
+    this.setState({
+      currentData: newCurrentData,
+    })
+  }
+
+  saveChanges = () => {
+    const {players, currentData} = this.state;
+    players.push(currentData);
+    currentData.firstName ="Player"
+    this.setState({
+      players,
+      modalVisibility: false,
+    })
+  }
+
+  clearCurrentData = () => {
+    this.setState({
+      currentData: "",
+    })
+  }
+
   render() {
+    const { players, modalVisibility, currentData } = this.state;
     return (
-      <div className='wrapper'>
-        <h1>React LifeCycle</h1>
-        <button onClick={() => this.changeStatus("show")}>Show</button>
-        <button onClick={() => this.changeStatus("hide")}>Hide</button>
-        {this.state.status ? <Note /> : ""}
+      <div className='market'>
+        <div className="container">
+          <h1>⚽ TRANSFER market</h1>
+          <div className="row">
+            <div className="col">
+              <button className='btn btn-primary m-2' onClick={this.openModal}>Add a player</button>
+            </div>
+            {
+              modalVisibility ? <PlayerModal 
+              closeModal={this.closeModal} 
+              currentData={currentData} 
+              saveChanges={this.saveChanges}
+              clearCurrentData={this.clearCurrentData}
+              changeCurrentData={this.changeCurrentData} /> : ""
+             
+            }
+          </div>
+          <div className="row">
+            <div className="col">
+              <table className="table border table-hover table-sm">
+                <thead>
+                  <tr className='table-dark'>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Age</th>
+                    <th>Club</th>
+                    <th>Market Value</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {
+                    players.map((item, index) =>
+                      <tr key={index}>
+                        <td>{index + 1}</td>
+                        <td>{item.firstName}</td>
+                        <td>{item.age}</td>
+                        <td>{item.club}</td>
+                        <td><span className='badge bg-primary'>💰${item.value}00m</span></td>
+                        <td><button className='btn btn-danger btn-sm' onClick={() => this.removePlayers(index)}>remove</button></td>
+                      </tr>
+                    )
+                  }
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
       </div>
-    )
+    );
   }
 }
 
-
-/* LifeCycle - Update --> componentDidUpdate */
-
-// import React, { Component } from 'react';
-
-// export default class App extends Component {
-
-//   state = {
-//     authorCourse: "Azizbek Khabibullayev",
-//   }
-
-//   changeName = () => {
-//     this.setState({
-//       authorCourse: "Abbos Ibrokhimov",
-//     })
-//   }
-
-//   componentDidUpdate(prevProps, prevState) {
-//     console.log("prevProps", prevProps);
-//     console.log("prevState", prevState);
-//   }
-
-//   render() {
-//     console.log("App - render ...")
-//     return (
-//       <div className='wrapper'>
-//         <h1>React LifeCycle</h1>
-//         <h3>{this.state.authorCourse}</h3>
-//         <button onClick={this.changeName}>Change Author</button>
-//       </div>
-//     )
-//   }
-// }
-
-
-/* LifeCycle - Mounting --> constructor vs render vs componentDidMount */
-
-// import React, { Component } from 'react';
-
-// export default class App extends Component {
-//   constructor(props) {
-//     super(props);
-//     alert("Welcome to our website")
-//   }
-
-//   componentDidMount() {
-//     console.log("App - componentDidMount...")
-//   }
-//   render() {
-//     console.log("App - render ...")
-//     return (
-//       <div className='wrapper'>
-//         <h1>React LifeCycle</h1>
-//         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maxime ea eaque tenetur ab at ex dolor quae? Corrupti veritatis sit odio. Quasi possimus necessitatibus cupiditate sapiente sint laboriosam exercitationem corporis!</p>
-//       </div>
-//     )
-//   }
-// }
+export default App;
